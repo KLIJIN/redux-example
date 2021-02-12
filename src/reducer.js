@@ -1,16 +1,17 @@
 import { DECREASE, INCREASE, REMOVE, CLEAR_CART, GET_TOTALS } from './actions.js'
-// items
+
 import cartItems from "./cart-items.js"; // redux stuff
+
 const initialStore = {
     cart: cartItems,
     total: 0,
     amount: 0
 }
+
 const reducer = (state = initialStore, action) => {
     let tempCart = [];
     // console.log(state)
     switch (action.type) {
-
         case DECREASE:
             console.log("YOU PUSH DECREASE", action.payload)
             tempCart = state.cart.map(cartItem => {
@@ -23,14 +24,13 @@ const reducer = (state = initialStore, action) => {
                 }
                 return cartItem
             })
-
             return {
                 ...state,
                 cart: tempCart
             }
         case INCREASE:
             console.log("YOU PUSH INCREASE", action.payload.id, action.payload.amount)
-            //тут мы перебираем массив карт, и там где cartItem.id  возвращаем cartItem но его пропс amount будет мутирован
+            //тут перебираем массив карт, и там где cartItem.id возвращаем cartItem но его пропс amount будет мутирован
             tempCart = state.cart.map(cartItem => {
                 if (cartItem.id === action.payload.id) {
                     cartItem = { ...cartItem, amount: cartItem.amount + 1 }
@@ -65,9 +65,10 @@ const reducer = (state = initialStore, action) => {
 
             }, { total: 0, amount: 0 }
             )
-
             total = parseFloat(total.toFixed(2))
+
             return { ...state, total, amount };
+
         default:
             return state;
     }

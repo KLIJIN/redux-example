@@ -3,16 +3,15 @@ import CartItem from "./CartItem";
 import { connect } from "react-redux"
 import { decreaseAction, increaseAction, removeAction, clearCartAction, getTotalsAction } from "../actions"
 
-const CartContainer = ({ cart123, total, clearCart, decrease, increase, remove, getTotals }) => {
+const CartContainer = ({ cartArray, total, clearCart, decrease, increase, remove, getTotals }) => {
 
   useEffect(() => {
     getTotals()
-  }, [cart123, getTotals])
+  }, [cartArray, getTotals])
 
-  console.log("CartContainer", cart123)
+  console.log("CartContainer", cartArray)
 
-
-  if (cart123.length === 0) {
+  if (cartArray.length === 0) {
     return (
       <section className="cart">
         {/* cart header */}
@@ -31,7 +30,7 @@ const CartContainer = ({ cart123, total, clearCart, decrease, increase, remove, 
       </header>
       {/* cart items */}
       <article>
-        {cart123.map(item => {
+        {cartArray.map(item => {
           return <CartItem key={item.id} {...item} decrease={decrease} increase={increase} remove={remove} />;
         })}
       </article>
@@ -51,7 +50,7 @@ const CartContainer = ({ cart123, total, clearCart, decrease, increase, remove, 
 
 const mapStateToProps = (state) => {
   return {
-    cart123: state.cart,
+    cartArray: state.cart,
     total: state.total
   }
 }
